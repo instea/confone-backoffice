@@ -1,0 +1,29 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+services:
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+        - ./1-customer.sql.gz:/docker-entrypoint-initdb.d/1-customer.sql.gz
+        - ./2-conference.sql.gz:/docker-entrypoint-initdb.d/2-conference.sql.gz
+        - ./3-rating.sql.gz:/docker-entrypoint-initdb.d/3-rating.sql.gz
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_ROOT_PASSWORD: 'example'
+      MYSQL_USER: 'abc'
+      MYSQL_PASSWORD: 'abc'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3306:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080

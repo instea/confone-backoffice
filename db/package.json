@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "casual": "^1.6.2",
+    "moment": "^2.24.0",
+    "mysql": "^2.18.1"
+  }
+}
